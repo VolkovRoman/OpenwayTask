@@ -1,26 +1,46 @@
 import sys
+import math
+
+def inp_ut(x):
+    while True:
+      try:
+          text = '{} {} {} '.format("Введите число",x,'>>>')
+          a = float(input(text))
+          return a
+      except ValueError:
+          print("Please reinsert")
 
 
-def calc_A():
-    a = float(input())
-    b = float(input())
-    c = float(input())
-    d = float(input())
+def calc_A(a,b,c,d):  
     all_inputs = (a, b, c, d)
 
-    for i in all_inputs:
-        if len(str(i)) > 17:
-            print("Error! Only 17 characters allowed!")
-            sys.exit()
+    for j in all_inputs:
+      
+      if math.fabs(j)!=0:
+        try:
+          summ = (a + b) / (c + d)
+          
+        except ZeroDivisionError:
+          print("Division by zero")
+      else:
+        summ = 'None'
+        
+        break
 
-    try:
-        summ = (a + b) / (c + d)
-        print(summ)
-
-    except ZeroDivisionError:
-        print("Division by zero")
-    except ValueError:
-        print("Wrong type of data")
+    return summ
 
 
-calc_A()
+calc_A(a = inp_ut('a'),b = inp_ut('b'),c = inp_ut('c'),d = inp_ut('d'))
+# Так как программу написал с учетом исключения возможности ввода некоректного типа данных
+import unittest
+
+class ConverterTest(unittest.TestCase):
+    def test_task1234(self):
+        self.assertEqual(calc_A(1,2,3,4), (0.42857142857142855))
+    def test_task0(self):
+        self.assertEqual(calc_A(1,2,3,0), ("None"))
+    
+
+
+if __name__ == '__main__':
+    unittest.main()
